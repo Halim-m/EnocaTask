@@ -1,7 +1,7 @@
 package com.enoca.crud.Repository;
 
 
-import com.enoca.crud.entity.Worker;
+import com.enoca.crud.model.Worker;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

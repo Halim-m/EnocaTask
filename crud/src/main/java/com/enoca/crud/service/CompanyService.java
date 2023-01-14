@@ -1,34 +1,59 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.CompanyRepository;
-import com.enoca.crud.entity.Company;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.enoca.crud.dto.CompanyDto;
+import com.enoca.crud.dto.CreateCompanyRequest;
+import com.enoca.crud.dto.converter.CompanyDtoConverter;
+import com.enoca.crud.exception.CompanyNotFoundException;
+import com.enoca.crud.model.Company;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class CompanyService {
-    @Autowired()
-    private CompanyRepository companyRepository;
+public class CompanyService implements ICompanyService {
+    private final CompanyRepository companyRepository;
+    private final CompanyDtoConverter converter;
+
+    public CompanyService(CompanyRepository companyRepository,
+                          CompanyDtoConverter converter) {
+        this.companyRepository = companyRepository;
+        this.converter = converter;
+    }
+
+
 
     // Add and return new company
-    public Company addCompany(Company company){
-        return companyRepository.save(company);
+    @Override
+    public CompanyDto addCompany(CreateCompanyRequest createCompanyRequest){
+        Company company = new Company();
+        company.setName(createCompanyRequest.getName());
+        Company model = companyRepository.save(company);
+        return converter.convert(model);
     }
 
     // Return list of all companies
-    public List<Company> findAllCompany(){
-        return companyRepository.findAll();
+    @Override
+    public List<CompanyDto> findAllCompany(){
+        return companyRepository.findAll().stream().map(converter::convert).collect(Collectors.toList());
     }
 
     // Return company with given ID
-    public Company getCompanyById(Long companyId){
-        return companyRepository.findById(companyId).get();
+    @Override
+    public CompanyDto getCompanyById(Long companyId){
+        return converter.convert(companyRepository.findById(companyId).get());
+    }
+
+    protected Company companyEntityById(Long companyId){
+        return companyRepository.findById(companyId)
+                .orElseThrow(
+                () -> new CompanyNotFoundException("Customer could not find by id" +companyId)
+                );
     }
 
     // Delete company with given ID
-    public void deleteCompanyById(Long companyId){
-        companyRepository.deleteById(companyId);
+    @Override
+    public void deleteCompanyById(Long companyId){ companyRepository.deleteById(companyId);
     }
 }

@@ -1,33 +1,53 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.WorkerRepository;
-import com.enoca.crud.entity.Worker;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.enoca.crud.dto.CreateWorkerRequest;
+import com.enoca.crud.dto.WorkerDto;
+import com.enoca.crud.dto.converter.WorkerDtoConverter;
+import com.enoca.crud.model.Company;
+import com.enoca.crud.model.Worker;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-public class WorkerService {
-    @Autowired()
-    private WorkerRepository workerRepository;
+public class WorkerService implements IWorkerService{
+    private final WorkerRepository workerRepository;
+    private final WorkerDtoConverter converter;
+    private final CompanyService companyService;
+    public WorkerService(WorkerRepository workerRepository, WorkerDtoConverter converter, CompanyService companyService) {
+        this.workerRepository = workerRepository;
+        this.converter = converter;
+        this.companyService = companyService;
+    }
 
     // Add and return new worker
-    public Worker addWorker(Worker worker){
-        return workerRepository.save(worker);
+    @Override
+    public WorkerDto addWorker(CreateWorkerRequest createWorkerRequest){
+        Company company = companyService.companyEntityById(createWorkerRequest.getCompany_id());
+        Worker worker = new Worker();
+        worker.setName(createWorkerRequest.getName());
+        worker.setSurname(createWorkerRequest.getSurname());
+        worker.setCompany(company);
+        Worker model = workerRepository.save(worker);
+        return converter.convert(model);
     }
 
     // Return list of all workers
-    public List<Worker> findAllWorker(){
-        return workerRepository.findAll();
+    @Override
+    public List<WorkerDto> findAllWorker(){
+        return workerRepository.findAll().stream().map(converter::convert).collect(Collectors.toList());
     }
 
     // Return worker with given ID
-    public Worker getWorkerById(Long workerId){
-        return workerRepository.findById(workerId).get();
+    @Override
+    public WorkerDto getWorkerById(Long workerId){
+        return converter.convert(workerRepository.findById(workerId).get());
     }
 
     // Delete worker with given ID
+    @Override
     public void deleteWorkerById(Long workerId){
         workerRepository.deleteById(workerId);
     }
