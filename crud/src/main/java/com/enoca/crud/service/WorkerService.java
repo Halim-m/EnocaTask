@@ -4,6 +4,7 @@ import com.enoca.crud.Repository.WorkerRepository;
 import com.enoca.crud.dto.CreateWorkerRequest;
 import com.enoca.crud.dto.WorkerDto;
 import com.enoca.crud.dto.converter.WorkerDtoConverter;
+import com.enoca.crud.exception.WorkerNotFoundException;
 import com.enoca.crud.model.Company;
 import com.enoca.crud.model.Worker;
 import org.springframework.stereotype.Service;
@@ -37,13 +38,20 @@ public class WorkerService implements IWorkerService{
     // Return list of all workers
     @Override
     public List<WorkerDto> findAllWorker(){
-        return workerRepository.findAll().stream().map(converter::convert).collect(Collectors.toList());
+        return workerRepository.findAll()
+                .stream()
+                .map(converter::convert)
+                .collect(Collectors.toList());
     }
 
     // Return worker with given ID
     @Override
     public WorkerDto getWorkerById(Long workerId){
-        return converter.convert(workerRepository.findById(workerId).get());
+        return converter.convert(workerRepository.findById(workerId)
+                .orElseThrow(
+                        ()-> new WorkerNotFoundException("Worker could not find by id: " + workerId)
+                )
+        );
     }
 
     // Delete worker with given ID

@@ -22,8 +22,6 @@ public class CompanyService implements ICompanyService {
         this.converter = converter;
     }
 
-
-
     // Add and return new company
     @Override
     public CompanyDto addCompany(CreateCompanyRequest createCompanyRequest){
@@ -36,24 +34,32 @@ public class CompanyService implements ICompanyService {
     // Return list of all companies
     @Override
     public List<CompanyDto> findAllCompany(){
-        return companyRepository.findAll().stream().map(converter::convert).collect(Collectors.toList());
+        return companyRepository.findAll()
+                .stream()
+                .map(converter::convert)
+                .collect(Collectors.toList());
     }
 
     // Return company with given ID
     @Override
     public CompanyDto getCompanyById(Long companyId){
-        return converter.convert(companyRepository.findById(companyId).get());
+        return converter.convert(companyRepository.findById(companyId)
+                .orElseThrow(
+                        ()->new CompanyNotFoundException("Company could not find by id: " + companyId)
+                )
+        );
     }
 
     protected Company companyEntityById(Long companyId){
         return companyRepository.findById(companyId)
                 .orElseThrow(
-                () -> new CompanyNotFoundException("Customer could not find by id" +companyId)
+                () -> new CompanyNotFoundException("Company could not find by id: " +companyId)
                 );
     }
 
     // Delete company with given ID
     @Override
-    public void deleteCompanyById(Long companyId){ companyRepository.deleteById(companyId);
+    public void deleteCompanyById(Long companyId){
+        companyRepository.deleteById(companyId);
     }
 }
