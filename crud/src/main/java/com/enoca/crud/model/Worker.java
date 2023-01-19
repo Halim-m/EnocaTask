@@ -11,7 +11,8 @@ import java.util.Objects;
 @Table(name = "worker")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Worker {
     // Primary key

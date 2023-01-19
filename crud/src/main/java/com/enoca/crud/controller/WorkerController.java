@@ -1,9 +1,9 @@
 package com.enoca.crud.controller;
 
-import com.enoca.crud.dto.CreateWorkerRequest;
-import com.enoca.crud.dto.WorkerDto;
-import com.enoca.crud.model.Worker;
+import com.enoca.crud.service.dto.request.CreateWorkerRequest;
+import com.enoca.crud.service.dto.WorkerDto;
 import com.enoca.crud.service.WorkerService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class WorkerController {
 
     // Add a new worker
     @PostMapping(value = "/save")
-    public ResponseEntity<WorkerDto> addWorker(@RequestBody CreateWorkerRequest createWorkerRequest){
+    public ResponseEntity<WorkerDto> addWorker(@Valid @RequestBody CreateWorkerRequest createWorkerRequest){
         WorkerDto addWorker = workerService.addWorker(createWorkerRequest);
         return  new ResponseEntity<WorkerDto>(addWorker, HttpStatus.CREATED);
     }

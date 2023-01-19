@@ -1,8 +1,7 @@
 package com.enoca.crud.service;
 
-import com.enoca.crud.dto.CreateWorkerRequest;
-import com.enoca.crud.dto.WorkerDto;
-import com.enoca.crud.model.Worker;
+import com.enoca.crud.service.dto.request.CreateWorkerRequest;
+import com.enoca.crud.service.dto.WorkerDto;
 
 import java.util.List;
 

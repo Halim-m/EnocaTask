@@ -1,9 +1,9 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.CompanyRepository;
-import com.enoca.crud.dto.CompanyDto;
-import com.enoca.crud.dto.CreateCompanyRequest;
-import com.enoca.crud.dto.converter.CompanyDtoConverter;
+import com.enoca.crud.service.dto.CompanyDto;
+import com.enoca.crud.service.dto.request.CreateCompanyRequest;
+import com.enoca.crud.service.dto.converter.CompanyDtoConverter;
 import com.enoca.crud.exception.CompanyNotFoundException;
 import com.enoca.crud.model.Company;
 import org.springframework.stereotype.Service;
@@ -50,16 +50,21 @@ public class CompanyService implements ICompanyService {
         );
     }
 
+    //Return company with given ID
     protected Company companyEntityById(Long companyId){
         return companyRepository.findById(companyId)
                 .orElseThrow(
-                () -> new CompanyNotFoundException("Company could not find by id: " +companyId)
+                        () -> new CompanyNotFoundException("Company could not find by id: " + companyId)
                 );
     }
 
     // Delete company with given ID
     @Override
     public void deleteCompanyById(Long companyId){
+        companyRepository.findById(companyId)
+                .orElseThrow(
+                        () -> new CompanyNotFoundException("Company could not find by id: " + companyId)
+                );
         companyRepository.deleteById(companyId);
     }
 }

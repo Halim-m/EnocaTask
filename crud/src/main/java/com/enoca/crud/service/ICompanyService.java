@@ -1,7 +1,7 @@
 package com.enoca.crud.service;
 
-import com.enoca.crud.dto.CompanyDto;
-import com.enoca.crud.dto.CreateCompanyRequest;
+import com.enoca.crud.service.dto.CompanyDto;
+import com.enoca.crud.service.dto.request.CreateCompanyRequest;
 
 import java.util.List;
 

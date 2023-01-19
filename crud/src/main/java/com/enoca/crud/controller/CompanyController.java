@@ -1,10 +1,9 @@
 package com.enoca.crud.controller;
 
-import com.enoca.crud.dto.CompanyDto;
-import com.enoca.crud.dto.CreateCompanyRequest;
-import com.enoca.crud.model.Company;
+import com.enoca.crud.service.dto.CompanyDto;
+import com.enoca.crud.service.dto.request.CreateCompanyRequest;
 import com.enoca.crud.service.CompanyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class CompanyController {
 
     // Add a new company
     @PostMapping(value = "/save")
-    public ResponseEntity<CompanyDto> addCompany(@RequestBody CreateCompanyRequest createCompanyRequest){
+    public ResponseEntity<CompanyDto> addCompany(@Valid @RequestBody CreateCompanyRequest createCompanyRequest){
         CompanyDto addCompany = companyService.addCompany(createCompanyRequest);
         return  new ResponseEntity<CompanyDto>(addCompany, HttpStatus.CREATED);
     }

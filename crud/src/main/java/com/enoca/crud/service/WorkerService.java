@@ -1,9 +1,9 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.WorkerRepository;
-import com.enoca.crud.dto.CreateWorkerRequest;
-import com.enoca.crud.dto.WorkerDto;
-import com.enoca.crud.dto.converter.WorkerDtoConverter;
+import com.enoca.crud.service.dto.request.CreateWorkerRequest;
+import com.enoca.crud.service.dto.WorkerDto;
+import com.enoca.crud.service.dto.converter.WorkerDtoConverter;
 import com.enoca.crud.exception.WorkerNotFoundException;
 import com.enoca.crud.model.Company;
 import com.enoca.crud.model.Worker;
@@ -17,7 +17,9 @@ public class WorkerService implements IWorkerService{
     private final WorkerRepository workerRepository;
     private final WorkerDtoConverter converter;
     private final CompanyService companyService;
-    public WorkerService(WorkerRepository workerRepository, WorkerDtoConverter converter, CompanyService companyService) {
+    public WorkerService(WorkerRepository workerRepository,
+                         WorkerDtoConverter converter,
+                         CompanyService companyService) {
         this.workerRepository = workerRepository;
         this.converter = converter;
         this.companyService = companyService;
@@ -57,6 +59,10 @@ public class WorkerService implements IWorkerService{
     // Delete worker with given ID
     @Override
     public void deleteWorkerById(Long workerId){
+        workerRepository.findById(workerId)
+                .orElseThrow(
+                        ()-> new WorkerNotFoundException("Worker could not find by id: " + workerId)
+                );
         workerRepository.deleteById(workerId);
     }
 }

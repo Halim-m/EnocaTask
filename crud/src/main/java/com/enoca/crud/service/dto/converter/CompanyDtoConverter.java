@@ -1,13 +1,11 @@
-package com.enoca.crud.dto.converter;
+package com.enoca.crud.service.dto.converter;
 
-import com.enoca.crud.dto.CompanyDto;
-import com.enoca.crud.dto.CompanyWorkerDto;
+import com.enoca.crud.service.dto.CompanyDto;
 import com.enoca.crud.model.Company;
-import org.hibernate.mapping.List;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,17 +21,11 @@ public class CompanyDtoConverter {
         return new CompanyDto(
                 from.getCompany_id(),
                 from.getName(),
-                from.getWorkers()!=null?
-                        from.getWorkers()
-                                .stream()
+                Optional.ofNullable(from.getWorkers())
+                        .map(workers -> workers.stream()
                                 .map(converter::convert)
-                                .collect(Collectors.toList()
-                                ):
-                        Collections.emptyList()
-        );
-                //null);
-                //ToDo
-
+                                .collect(Collectors.toList()))
+                        .orElse(Collections.emptyList()));
     }
 }
 
