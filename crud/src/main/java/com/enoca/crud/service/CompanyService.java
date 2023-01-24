@@ -1,9 +1,9 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.CompanyRepository;
-import com.enoca.crud.service.dto.CompanyDto;
-import com.enoca.crud.service.dto.request.CreateCompanyRequest;
-import com.enoca.crud.service.dto.converter.CompanyDtoConverter;
+import com.enoca.crud.dto.CompanyDto;
+import com.enoca.crud.dto.request.CreateCompanyRequest;
+import com.enoca.crud.dto.converter.CompanyDtoConverter;
 import com.enoca.crud.exception.CompanyNotFoundException;
 import com.enoca.crud.model.Company;
 import org.springframework.stereotype.Service;

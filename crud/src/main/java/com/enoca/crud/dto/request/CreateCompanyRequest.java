@@ -1,4 +1,4 @@
-package com.enoca.crud.service.dto.request;
+package com.enoca.crud.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

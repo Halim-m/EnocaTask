@@ -1,9 +1,9 @@
 package com.enoca.crud.service;
 
 import com.enoca.crud.Repository.WorkerRepository;
-import com.enoca.crud.service.dto.request.CreateWorkerRequest;
-import com.enoca.crud.service.dto.WorkerDto;
-import com.enoca.crud.service.dto.converter.WorkerDtoConverter;
+import com.enoca.crud.dto.request.CreateWorkerRequest;
+import com.enoca.crud.dto.WorkerDto;
+import com.enoca.crud.dto.converter.WorkerDtoConverter;
 import com.enoca.crud.exception.WorkerNotFoundException;
 import com.enoca.crud.model.Company;
 import com.enoca.crud.model.Worker;

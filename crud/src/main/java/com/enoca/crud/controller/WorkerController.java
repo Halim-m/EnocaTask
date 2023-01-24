@@ -1,7 +1,7 @@
 package com.enoca.crud.controller;
 
-import com.enoca.crud.service.dto.request.CreateWorkerRequest;
-import com.enoca.crud.service.dto.WorkerDto;
+import com.enoca.crud.dto.request.CreateWorkerRequest;
+import com.enoca.crud.dto.WorkerDto;
 import com.enoca.crud.service.WorkerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

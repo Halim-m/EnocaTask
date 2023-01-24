@@ -1,6 +1,6 @@
-package com.enoca.crud.service.dto.converter;
+package com.enoca.crud.dto.converter;
 
-import com.enoca.crud.service.dto.CompanyDto;
+import com.enoca.crud.dto.CompanyDto;
 import com.enoca.crud.model.Company;
 import org.springframework.stereotype.Component;
 

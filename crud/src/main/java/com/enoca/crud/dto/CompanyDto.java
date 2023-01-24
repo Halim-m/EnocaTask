@@ -1,4 +1,4 @@
-package com.enoca.crud.service.dto;
+package com.enoca.crud.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

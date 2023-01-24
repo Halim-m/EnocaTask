@@ -1,6 +1,6 @@
-package com.enoca.crud.service.dto.converter;
+package com.enoca.crud.dto.converter;
 
-import com.enoca.crud.service.dto.CompanyWorkerDto;
+import com.enoca.crud.dto.CompanyWorkerDto;
 import com.enoca.crud.model.Worker;
 import org.springframework.stereotype.Component;
 

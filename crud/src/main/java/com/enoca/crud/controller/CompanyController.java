@@ -1,7 +1,7 @@
 package com.enoca.crud.controller;
 
-import com.enoca.crud.service.dto.CompanyDto;
-import com.enoca.crud.service.dto.request.CreateCompanyRequest;
+import com.enoca.crud.dto.CompanyDto;
+import com.enoca.crud.dto.request.CreateCompanyRequest;
 import com.enoca.crud.service.CompanyService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
