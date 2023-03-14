@@ -9,6 +9,7 @@ import com.enoca.crud.model.Company;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,10 +62,11 @@ public class CompanyService implements ICompanyService {
     // Delete company with given ID
     @Override
     public void deleteCompanyById(Long companyId){
-        companyRepository.findById(companyId)
-                .orElseThrow(
-                        () -> new CompanyNotFoundException("Company could not find by id: " + companyId)
-                );
-        companyRepository.deleteById(companyId);
+         Optional<Company> company = companyRepository.findById(companyId);
+         if(company.isPresent()){
+             companyRepository.delete(company.get());
+         }else {
+             throw new CompanyNotFoundException("Company could not find by id: " + companyId);
+         }
     }
 }

@@ -43,7 +43,5 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> workerNotFoundExceptionHandler(WorkerNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
     }
-
-
 }
 
